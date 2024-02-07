@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const {v4:uuidv4} = require('uuid');
-const {setUser} = require('../auth');
+const {setUser} = require('../service/mapUser');
 
 async function handleUserSignup(req,res){
     try{
@@ -32,12 +32,12 @@ async function handleUserLogin(req,res){
             res.send("error:invalid username or password")
         }
         req.user = user;
-        console.log(req.user);
 
         const sessionId = uuidv4();
         setUser(sessionId,user);
-        res.cookie("uid",sessionId)
-        res.send(`${user.name} login successfull`)
+
+        res.cookie("uid",sessionId,{httpOnly:true})
+        .send(`${user.name} login successfull`)
         
     }catch(err){
         console.log(err);

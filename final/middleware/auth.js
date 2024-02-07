@@ -1,4 +1,4 @@
-const { getUser } = require("../auth");
+const { getUser } = require("../service/mapUser");
 
 async function checkAuth(req,res,next){
     const userUid = req.cookies.uid;
